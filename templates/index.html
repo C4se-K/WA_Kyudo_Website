@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vertical Sliding Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-y: scroll;
+            background-color: #f4f4f9;
+
+            background-image: url('{{ url_for("static", filename="image/no_image1.jpg") }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        .page {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Navigation styling */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 100%;
+            background-color: #2c3e50;
+            padding: 20px;
+            color: white;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Login box styling */
+        .login {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #ecf0f1;
+            width: 180px;
+
+            display: flex;
+
+        }
+
+        .login input {
+            margin: 5px 0;
+            padding: 5px;
+            width: 100%;
+            display: block;
+        }
+
+        .login button[type="submit"] {
+            width: auto;
+            padding: 5px 10px;
+            display: block;
+            margin-left: auto;
+        }
+
+        .login input[type="checkbox"] {
+            width: auto;
+            padding: 5px 10px;
+            display: block;
+            margin-left: auto;
+        }
+
+        .login button:hover {
+            background-color: #0056b3;
+        }
+
+        .content {
+            line-height: 2;
+            width: 50%;
+            max-width: 2000px;
+            min-width: 200px;
+            text-align: justify;
+            line-height: 1.6;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 10em;
+
+
+            z-index: 1;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+
+
+        @media (max-width: 768px) {
+            .content {
+                width: 80%;
+            }
+        }
+
+        
+
+
+        .content img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .dashboard {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #34495e;
+            color: white;
+            font-size: 2em;
+        }
+
+        .nav {
+            z-index: 10;
+        }
+
+        .login {
+            z-index: 10;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Page 1 -->
+    <div class="page" id="page1">
+        <div class="nav">
+            <h2>Menu</h2>
+            <a href="#section1">About</a>
+            <a href="#section2">Joining</a>
+            <a href="#section3">Links</a>
+        </div>
+        <div class="login">
+            <form id="loginForm" action="/login" method="POST" >
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <label for="checkbox">Remember</label>
+                <input type="checkbox" name = "remember" id ="remember">
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        <div class="content">
+            <div>
+                <br><br><br><br><br><br><br><br><br><br>
+                <img src="{{ url_for('static', filename='image/no_image1.jpg') }}" alt="No Image" style="width: 100%; max-height: 300px; object-fit: cover; border-radius: 8px; margin-bottom: 20px;">
+
+                <h1 id="section1">“The Way of the Bow”</h1>
+                <h2>—
+                    Kyudo is a Japanese martial art that is rarely seen in this part of the world.
+                    We are a group that meets in the Seattle, Washington area to practice together 
+                    and share our experiences.
+                </h2>
+                <br><br><br><br><br><br><br><br><br><br>
+
+                <h1 id="section1">Washington Kyudo Club 誠和会
+                    . . . Where Japanese Archery is practiced in Seattle. . . .
+                </h1>
+                <h1>About Kyudo</h1>
+                <h2>The Essence of Kyudo</h2>
+                <p>
+                    Kyudo is not simply shooting arrows at a target but an art of combining the bow, the body, 
+                    and the spirit in harmony. The Kyudo-ka, or practitioner of Kyudo, develops technique, 
+                    mental focus, and character together. Virtues and weaknesses both physical and spiritual 
+                    become apparent during the process of shooting the arrow.
+                </p>
+                <blockquote>
+                    "Kyudo is about the balance of the body, spirit, and bow—a true journey of self-discovery."
+                </blockquote>
+                <h2>Learning Kyudo</h2>
+                <p>
+                    Learning Kyudo involves the demanding and challenging process of balancing the body and 
+                    spirit in harmony. Kyudo follows the method of traditional Japanese arts and disciplines 
+                    in promoting self-cultivation through the rigor of a prescribed process and may not be 
+                    suitable for those unwilling to follow such an approach.
+                </p>
+                <h2>The History of Kyudo</h2>
+                <p>
+                    The origins of Kyudo begin with the introduction of archery from China into Japan over a 
+                    thousand years ago. Over the last few hundred years, it evolved in its own way.
+                </p>
+                <p>
+                    During this latter period, Japanese archery became associated with ceremonial functions 
+                    at temples, distinct from the practical use of the bow for war and hunting. 
+                </p>
+                <h2>Kyudo Today</h2>
+                <p>
+                    The current practice of Kyudo has come forth from a blend of influences from the temple 
+                    and martial styles of Japanese archery and, in the process, has lost any of its application 
+                    on the battlefield or the hunting ground.
+                </p>
+                <p>
+                    Today, Kyudo is practiced as an activity to develop oneself. It can help cultivate focus 
+                    and inner calm in today’s hectic world. In Japan, Kyudo is practiced equally by men and 
+                    women. Its emphasis on mental focus rather than physical strength has made it accessible 
+                    to both young and old.
+                </p>
+                <br><br><br><br><br><br><br><br><br><br>
+
+                <h1 id="section2">Joining</h2>
+                <h2>Classes</h2>
+                <p>
+                    We typically hold classes once a week. The classes are loosely structured and are led by 
+                    the senior student who is present that day.
+                </p>
+                <p>
+                    At the Nisei Veteran’s Center we have facilities for basic form training and practice on 
+                    a straw practice butt (makiwara shaho). Actually, ours is made of polystyrene but serves 
+                    the same function.
+                </p>
+                <p>
+                    We are trying to arrange facilities for practice at the “short” standard 
+                    distance of 28 meters (kinteki shaho). Check the news page regularly for updates.
+                </p>
+                <p>
+                    You are welcome to visit our practice locations to see what we do. Please contact us 
+                    first to ensure that you receive the latest information on practice times and schedules.
+                </p>
+            
+                <h2>Costs</h2>
+                <ul>
+                    <li>
+                        We currently charge $100 per quarter to cover facility rental costs and loaner 
+                        equipment for beginners.
+                    </li>
+                    <li>
+                        Kyudo is very safe when practiced conscientiously but insurance coverage is required and 
+                        provided through our parent Kyudo organization. There is an annual fee of $20 to cover membership.
+                    </li>
+                    <li>
+                        Equipment for beginners is generally loaned out by the club, but members of the class 
+                        will be expected to purchase various items along the way. Many pieces of equipment are 
+                        very personal and eventually, students will be obliged to purchase their own equipment.
+                    </li>
+                    <li>
+                        Miscellaneous handouts, etc., are provided as part of the club. We recommend that the 
+                        student acquire certain reference materials as noted in the equipment section below.
+                    </li>
+                </ul>
+            
+                <h2>Equipment</h2>
+                <p>
+                    Some information is given here to give you an idea of the costs involved in acquiring 
+                    equipment as you progress in your Kyudo. For the first quarter, the club will provide 
+                    any equipment or other training materials.
+                </p>
+                <p>
+                    In the second quarter we would like you to purchase or make a gomu-yumi (“rubber bow”) 
+                    for practice. A senior club member can make one for you or you can make your own. 
+                    The cost is around $20. Also in the second quarter you may like to purchase a uniform 
+                    although we do not require it.
+                </p>
+                <p>
+                    This is also a good time to get a copy of the Kyudo Manual Vol. 1, published by the 
+                    All Nippon Kyudo Federation. If you plan to continue in Kyudo, you will need this book. 
+                    This is about $30.
+                </p>
+                <p>
+                    In the second or third quarter you may start practicing with the bow and Yugake (glove). 
+                    The Yugake is fitted personally to you and you will need to purchase this at this time. 
+                    These are quite expensive, in the $150-$250 range.
+                </p>
+                <p>
+                    The next stage in your learning of the technique you will be shooting into the maki-wara. 
+                    At this time there are several things that you will need. We would like you to be wearing 
+                    a uniform at this point. The uniform consists of:
+                </p>
+                <ul>
+                    <li>Tabi – sock-like items – we recommend you buy at least two pairs (~$10)</li>
+                    <li>Dogi – the uniform top (~$30)</li>
+                    <li>Obi – a belt worn over the dogi and under the hakama (~$20)</li>
+                    <li>Hakama – a pleated garment somewhat like a cross between a skirt and baggy pants (~$70)</li>
+                    <li>Muneate – women have a covering to protect the chest from the string (~$5)</li>
+                </ul>
+                <p>
+                    You will also need your own makiwara arrow. This will be about $15-$20.
+                </p>
+                <p>
+                    When you are ready to begin shooting at the kinteki distance of 28 meters, you will 
+                    need your own set of arrows. Expect to pay about $150-$200 for these. With care, 
+                    this one set of arrows will last you many years.
+                </p>
+                <p>
+                    After a year or two of regular practice, you will probably want to buy your own yumi and 
+                    allow others to use the club yumi that you have been learning with. A new yumi will range 
+                    upwards from about $250. Be aware that shipping can be over $100, which can add considerably 
+                    to the cost even when several orders are placed together.
+                </p>
+                <br><br><br><br><br><br><br><br><br><br>
+
+                <h1 id="section3">Links</h2>
+                <h2>Organizational Links:</h2>
+                <p>
+                    Kyudo in Seattle – Our public Facebook page and has the latest resource found on the web today.
+                    Seishinkan Kyudo – Our parent dojo is located in California and has lots of interesting information on the web site.
+                    American Kyudo Renmei – Governing body for kyudo operating in the U.S. under the All Nippon Kyudo Federation. There’s also a directory of kyudo clubs in the United States.
+                    International Kyudo Federation – The organization dedicated to promoting kyudo internationally.
+                    Kyudo Flash Animation (日本語) – a cute animation of kyudo practice.
+                    Zenko – another Kyudo organization.
+                    Kyudo.com –  Dan and Jackie DeProspero, co-authors with their teacher, Hideharu Onuma Hanshi, of the books Kyudo: The Essence and Practice of Japanese Archery and Illuminated Spirit: Conversations with a Kyudo Master
+                </p>
+                <h2>Equipment Providers:</h2>
+                <p>
+                    Equipment Providers:
+                    Sambu Kyuguten (English)
+                    Sambu Kyuguten (日本語)
+                </p>
+
+                
+            </div>
+        </div>
+        <div class="content">
+            <div>
+                <img src="{{ url_for('static', filename='image/no_image1.jpg') }}" alt="No Image" style="width: 100%; max-height: 300px; object-fit: cover; border-radius: 8px; margin-bottom: 20px;">
+
+                <h1 id="section1">“The Way of the Bow”</h1>
+                <h2>—
+                    Kyudo is a Japanese martial art that is rarely seen in this part of the world.
+                    We are a group that meets in the Seattle, Washington area to practice together 
+                    and share our experiences.
+                </h2>
+
+                <h1 id="section1">Washington Kyudo Club 誠和会
+                    . . . Where Japanese Archery is practiced in Seattle. . . .
+                </h1>
+                <h1>About Kyudo</h1>
+                <h2>The Essence of Kyudo</h2>
+                <p>
+                    Kyudo is not simply shooting arrows at a target but an art of combining the bow, the body, 
+                    and the spirit in harmony. The Kyudo-ka, or practitioner of Kyudo, develops technique, 
+                    mental focus, and character together. Virtues and weaknesses both physical and spiritual 
+                    become apparent during the process of shooting the arrow.
+                </p>
+                <blockquote>
+                    "Kyudo is about the balance of the body, spirit, and bow—a true journey of self-discovery."
+                </blockquote>
+                <h2>Learning Kyudo</h2>
+                <p>
+                    Learning Kyudo involves the demanding and challenging process of balancing the body and 
+                    spirit in harmony. Kyudo follows the method of traditional Japanese arts and disciplines 
+                    in promoting self-cultivation through the rigor of a prescribed process and may not be 
+                    suitable for those unwilling to follow such an approach.
+                </p>
+                <h2>The History of Kyudo</h2>
+                <p>
+                    The origins of Kyudo begin with the introduction of archery from China into Japan over a 
+                    thousand years ago. Over the last few hundred years, it evolved in its own way.
+                </p>
+                <p>
+                    During this latter period, Japanese archery became associated with ceremonial functions 
+                    at temples, distinct from the practical use of the bow for war and hunting. 
+                </p>
+                <h2>Kyudo Today</h2>
+                <p>
+                    The current practice of Kyudo has come forth from a blend of influences from the temple 
+                    and martial styles of Japanese archery and, in the process, has lost any of its application 
+                    on the battlefield or the hunting ground.
+                </p>
+                <p>
+                    Today, Kyudo is practiced as an activity to develop oneself. It can help cultivate focus 
+                    and inner calm in today’s hectic world. In Japan, Kyudo is practiced equally by men and 
+                    women. Its emphasis on mental focus rather than physical strength has made it accessible 
+                    to both young and old.
+                </p>           
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 2 -->
+    <div class="dashboard" id="dashboard">
+        <p>Welcome to the Dashboard!</p>
+    </div>
+    <script>
+        document.getElementById('username').addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                const usernameValue = this.value.trim();
+                const passwordField = document.getElementById('password');
+    
+                if (usernameValue && !passwordField.value.trim()) {
+                    event.preventDefault();
+                    passwordField.focus();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
